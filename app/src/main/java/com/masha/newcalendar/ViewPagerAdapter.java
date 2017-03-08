@@ -4,11 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.text.Layout;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.Calendar;
 
@@ -16,18 +12,16 @@ import java.util.Calendar;
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    Calendar rightNow;
+
     int ListSize = MainActivity.BIG_COUNT;
-    Context context;
     int newPosition;
     int oldPosition;
 
-    public SectionsPagerAdapter(FragmentManager fm, Calendar calendar, Context context) {
+    public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        rightNow = calendar;
-        this.context = context;
+
         newPosition = 0;
         oldPosition = 0;
     }
@@ -35,11 +29,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
+        // Return a MonthFragment (defined as a static inner class below).
         oldPosition = position;
         newPosition = position + 1;
-        return PlaceholderFragment.newInstance(newPosition, rightNow);
-     //   return PlaceholderFragment.newInstance(position + 1);
+        return MonthFragment.newInstance(newPosition);
+     //   return MonthFragment.newInstance(position + 1);
     }
 
 

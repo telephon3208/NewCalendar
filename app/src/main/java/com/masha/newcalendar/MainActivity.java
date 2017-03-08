@@ -1,6 +1,6 @@
 package com.masha.newcalendar;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,23 +21,15 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
+    private ViewPagerAdapter mViewPagerAdapter;
     private ViewPager mViewPager;
 
-    public static Calendar rightNow;
 
+    public static Calendar rightNow;
+    public static Calendar displayMonth;
+    public static MonthCreater monthCreater;
+    public  static Context mainActivityLink;
     public static final int BIG_COUNT = 10000;
 
     @Override
@@ -49,12 +41,15 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         rightNow = Calendar.getInstance();
+        displayMonth = (Calendar) rightNow.clone();
+        mainActivityLink = this;
+       // monthCreater = new MonthCreater();
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), rightNow, this);
+        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(mViewPagerAdapter);
         mViewPager.setCurrentItem(BIG_COUNT/2);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
